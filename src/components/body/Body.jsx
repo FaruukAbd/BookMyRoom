@@ -9,7 +9,7 @@ const Body = () => {
     const { data, loading, error } = useFetch(
         "hotels/getTopHotels"
       );
-    //   console.log(data);
+      console.log(data);
     const {city,checkin,checkout,adult,child,room,changeDestination,changeCheckin,changeCheckout,changeAdult,changeChild,changeRoom,dispatch}=useContext(SearchContext);
     const navigate=useNavigate();
     const handleClick=(id,c)=>{
