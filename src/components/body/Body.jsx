@@ -29,7 +29,7 @@ const Body = () => {
         <div className="bodyHotels">
             {loading?"loading":<>
             
-            {data.map(item=>(
+            {data?.map(item=>(
             
             <div className="bodyHotel"  key={item._id} onClick={() => handleClick(item._id,item.city)}>
                <img  class="img" src={item.photos[0]}  alt="" />
