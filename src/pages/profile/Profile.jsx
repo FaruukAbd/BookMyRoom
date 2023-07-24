@@ -15,7 +15,7 @@ const Profile = () => {
   const [editprofile,setEditProfile]=useState(false);
   const navigate=useNavigate();
   const {user,dispatch}=useContext(AuthContext);
-
+  const baseURL=process.env.REACT_APP_BACKEND_URL;
   const logout=()=>{
     dispatch({ type:"LOGOUT"}); 
     navigate("/")
@@ -36,7 +36,9 @@ const Profile = () => {
     setBooking(false);
     setEditProfile(true);
   } 
-  const { data, loading, error } = useFetch(`/users/${user._id}`);
+  
+ 
+  const { data, loading, error } = useFetch(`${baseURL}/users/${user._id}`);
   const [credentials,setCredentials]=useState({
     name:data.name ,
     email:data.email,
@@ -45,7 +47,7 @@ const Profile = () => {
     country:data.country,
     img:data.img 
   });
-  const {data:fetchedData}=useFetch(`/bookings/find/${user._id}`);
+  const {data:fetchedData}=useFetch(`${baseURL}/bookings/find/${user._id}`);
   const [list,setList]=useState([]);
 
   useEffect(()=>{
@@ -54,7 +56,7 @@ const Profile = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/bookings/${id}`);
+      await axios.delete(`${baseURL}/bookings/${id}`);
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
@@ -63,7 +65,7 @@ const Profile = () => {
     setCredentials((prev)=>({...prev,[e.target.id]:e.target.value}));
   }
   const updatedata=async()=>{
-    await axios.put(`/users/${user._id}`,credentials);
+    await axios.put(`${baseURL}/users/${user._id}`,credentials);
     window.location.reload();
     clickprofile();
   }
@@ -88,7 +90,7 @@ const Profile = () => {
 
         await Promise.all(
           item.RoomNoId.map((room)=>{
-            const res=axios.put(`/rooms/availabilityoncalcel/${room.roomId}`,{
+            const res=axios.put(`${baseURL}/rooms/availabilityoncalcel/${room.roomId}`,{
               dates:alldates
             })
             return res.data;

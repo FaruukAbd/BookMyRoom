@@ -4,6 +4,7 @@ import Navber from '../../components/navber/Navber'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../../components/context/AuthContext'
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 
 const Register = () => {
     const navigate=useNavigate();
@@ -33,7 +34,7 @@ const Register = () => {
               else{
                   try {
                   
-                  const res=  await axios.post("/auth/register",credentials);
+                  const res=  await axios.post(`${baseURL}/auth/register`,credentials);
                   
                     dispatch({ type: "LOGIN_SUCCESS", payload:res.data.details});
                     if (res.data.message) {

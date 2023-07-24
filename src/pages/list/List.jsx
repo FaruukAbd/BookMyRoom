@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import useFetch from '../../hooks/useFetch';
 import { SearchContext } from '../../components/context/SearchContext';
-
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 const List = () => {
     const location = useLocation();
     const [destination, setDestination] = useState(location.state.destination);
@@ -22,7 +22,7 @@ const List = () => {
     
     const {city,checkin,checkout,adult,child,room,changeDestination,changeCheckin,changeCheckout,changeAdult,changeChild,changeRoom,dispatch}=useContext(SearchContext);
     const { data, loading, error, reFetch } = useFetch(
-      `/hotels?city=${city}&min=${min || 0 }&max=${max || 999}`
+      `${baseURL}/hotels?city=${city}&min=${min || 0 }&max=${max || 999}`
     );
     
     const handleClick=()=>{

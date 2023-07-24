@@ -11,7 +11,7 @@ import { useState } from 'react'
 import {format } from "date-fns";
 import { useNavigate } from 'react-router-dom'
 import { SearchContext } from '../context/SearchContext'
-
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 const Header = () => {
     const [destination, setDestination]=useState("");
     const [openDate, setOpenDate]=useState(false);

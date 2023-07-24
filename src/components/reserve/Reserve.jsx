@@ -9,10 +9,12 @@ import "./Reserve.css"
 import { SearchContext } from "../context/SearchContext"
 import { AuthContext } from "../context/AuthContext"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+const baseURL=process.env.REACT_APP_BACKEND_URL;
+
 const Reserve = ({setOpen,hotelId,price}) => {
     const [selectedRooms,setSelectedRooms]=useState([]);
-    const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
-    const {data:hotel}=useFetch(`/hotels/find/${hotelId}`);
+    const { data, loading, error } = useFetch(`${baseURL}/hotels/room/${hotelId}`);
+    const {data:hotel}=useFetch(`${baseURL}/hotels/find/${hotelId}`);
     const {city,checkin,checkout,adult,child,room,changeDestination,changeCheckin,changeCheckout,changeAdult,changeChild,changeRoom,dispatch}=useContext(SearchContext);
     const {user}=useContext(AuthContext);
     const [amount,setAmount]=useState();
@@ -98,14 +100,14 @@ const Reserve = ({setOpen,hotelId,price}) => {
        try {
         await Promise.all(
             selectedRooms.map((room)=>{
-                const res=axios.put(`/rooms/availability/${room.roomId}`,{
+                const res=axios.put(`${baseURL}/rooms/availability/${room.roomId}`,{
                     dates:alldates
                 });
                 return res.data;
             })
         );
        
-        await axios.post("/bookings",credentials);
+        await axios.post(`${baseURL}/bookings`,credentials);
         setOpen(false);
         navigate("/");
        } catch (error) {

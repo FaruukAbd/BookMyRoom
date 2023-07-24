@@ -27,13 +27,13 @@ import { format } from 'date-fns';
 import { DateRange } from 'react-date-range';
 import { AuthContext } from '../../components/context/AuthContext';
 import Reserve from '../../components/reserve/Reserve';
-
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 const Hotel = () => {
   const location = useLocation();
   const id=location.pathname.split("/")[2];
  const navigate=useNavigate();
   const { data, loading, error } = useFetch(
-    `/hotels/find/${id}`
+    `${baseURL}/hotels/find/${id}`
   );
  
   
@@ -72,7 +72,7 @@ const Hotel = () => {
   // console.log(date)
   // console.log(city);
   const {data: fetchedData} = useFetch(
-    `/hotels?city=${city}&min=${min || 0 }&max=${max || 999}`
+    `${baseURL}/hotels?city=${city}&min=${min || 0 }&max=${max || 999}`
   );
   // console.log(fetchedData);
 

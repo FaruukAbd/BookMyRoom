@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '../context/SearchContext';
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 const Body = () => {
     const { data, loading, error } = useFetch(
-        "hotels/getTopHotels"
+        `${baseURL}/hotels/getTopHotels`
       );
       console.log(data);
     const {city,checkin,checkout,adult,child,room,changeDestination,changeCheckin,changeCheckout,changeAdult,changeChild,changeRoom,dispatch}=useContext(SearchContext);

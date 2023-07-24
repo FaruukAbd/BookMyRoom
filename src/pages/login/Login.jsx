@@ -4,7 +4,7 @@ import Navber from '../../components/navber/Navber'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../components/context/AuthContext';
 import axios from 'axios';
-
+const baseURL=process.env.REACT_APP_BACKEND_URL;
 const Login = () => {
     const navigate=useNavigate();
     const handleClickRegister=()=>{
@@ -23,7 +23,7 @@ const Login = () => {
         e.preventDefault();
         dispatch({ type: "LOGIN_START" });
         try {
-          const res = await axios.post("/auth/login", credentials);
+          const res = await axios.post(`${baseURL}/auth/login`, credentials);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
 
           if(res.data.message){
